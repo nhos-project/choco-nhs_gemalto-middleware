@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Stop'; # stop on all errors
 
 $packageName= 'nhs_gemalto-middleware' # arbitrary name for the package, used in messages
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = '' # download url, HTTPS preferred
+$url        = 'http://nww.hscic.gov.uk/dir/downloads/gem_middleware.zip' # download url, HTTPS preferred
 $url64      = '' # 64bit URL here (HTTPS preferred) or remove - if installer contains both (very rare), use $url
 #$fileLocation = Join-Path $toolsDir 'NAME_OF_EMBEDDED_INSTALLER_FILE'
 #$fileLocation = '\\SHARE_LOCATION\to\INSTALLER_FILE'
@@ -22,10 +22,10 @@ $packageArgs = @{
   softwareName  = 'nhs_gemalto-middleware*' #part or all of the Display Name as you see it in Programs and Features. It should be enough to be unique
 
   # Checksums are now required as of 0.10.0.
-  # To determine checksums, you can get that from the original site if provided. 
-  # You can also use checksum.exe (choco install checksum) and use it 
+  # To determine checksums, you can get that from the original site if provided.
+  # You can also use checksum.exe (choco install checksum) and use it
   # e.g. checksum -t sha256 -f path\to\file
-  checksum      = ''
+  checksum      = 'dbcbd3cf8bc79bbc2d42273374f2ffcde3b9113edf0084cb88eea0fd150d8623'
   checksumType  = 'sha256' #default is md5, can also be sha1, sha256 or sha512
   checksum64    = ''
   checksumType64= 'sha256' #default is checksumType
@@ -51,7 +51,7 @@ $packageArgs = @{
 
 Install-ChocolateyPackage @packageArgs # https://chocolatey.org/docs/helpers-install-chocolatey-package
 #Install-ChocolateyZipPackage @packageArgs # https://chocolatey.org/docs/helpers-install-chocolatey-zip-package
-## If you are making your own internal packages (organizations), you can embed the installer or 
+## If you are making your own internal packages (organizations), you can embed the installer or
 ## put on internal file share and use the following instead (you'll need to add $file to the above)
 #Install-ChocolateyInstallPackage @packageArgs # https://chocolatey.org/docs/helpers-install-chocolatey-install-package
 
@@ -96,9 +96,9 @@ Install-ChocolateyPackage @packageArgs # https://chocolatey.org/docs/helpers-ins
 ##Will resolve to C:\Program Files\appname
 #$statementsToRun = "/C `"$appPath\bin\installservice.bat`""
 #Start-ChocolateyProcessAsAdmin $statementsToRun cmd -validExitCodes $validExitCodes
-    
-## add specific folders to the path - any executables found in the chocolatey package 
-## folder will already be on the path. This is used in addition to that or for cases 
+
+## add specific folders to the path - any executables found in the chocolatey package
+## folder will already be on the path. This is used in addition to that or for cases
 ## when a native installer doesn't add things to the path.
 ## - https://chocolatey.org/docs/helpers-install-chocolatey-path
 #Install-ChocolateyPath 'LOCATION_TO_ADD_TO_PATH' 'User_OR_Machine' # Machine will assert administrative rights
@@ -118,7 +118,7 @@ Install-ChocolateyPackage @packageArgs # https://chocolatey.org/docs/helpers-ins
 
 ## Set up a file association
 ## - https://chocolatey.org/docs/helpers-install-chocolatey-file-association
-#Install-ChocolateyFileAssociation 
+#Install-ChocolateyFileAssociation
 
 ## Adding a shim when not automatically found - Cocolatey automatically shims exe files found in package directory.
 ## - https://chocolatey.org/docs/helpers-install-bin-file
